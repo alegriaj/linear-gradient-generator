@@ -12,27 +12,28 @@ function setGradient() {
 
 function extractColors(rgb) {
   let colors = [];
-  for (let item of rgb[0].matchAll(/\d+/g)) colors.push(Number(item[0]));
+  for (let [item, ...rest] of rgb.matchAll(/\d+/g)) {
+    colors.push(Number(item));
+  }
   return colors;
 }
 
-function getInitialGradientColors() {
-  let gcsb = getComputedStyle(body).background;
+function getRgbStrings() {
+  const gcsb = getComputedStyle(body).background;
 
-  let rgbstrings = [];
-  for (let item of gcsb.matchAll(/rgb(\(.+?)\)/g)) rgbstrings.push(item[0]);
+  const rgbStrings = [];
+  for (let [item, ...rest] of gcsb.matchAll(/rgb(\(.+?)\)/g)) {
+    rgbStrings.push(item);
+  }
+  return rgbStrings;
+}
 
-  let colors = [];
-  for (let item of rgbstrings[0].matchAll(/\d+/g)) colors.push(Number(item[0]));
+function setInitialGradientColors() {
+  const [rgbColor1, rgbColor2] = getRgbStrings();
 
-  let [r1, g1, b1] = colors;
-  color1.value = rgbToHex(r1, g1, b1);
+  color1.value = rgbToHex(...extractColors(rgbColor1));
+  color2.value = rgbToHex(...extractColors(rgbColor2));
 
-  colors = [];
-  for (let item of rgbstrings[1].matchAll(/\d+/g)) colors.push(Number(item[0]));
-
-  [r1, g1, b1] = colors;
-  color2.value = rgbToHex(r1, g1, b1);
   setGradient();
 }
 
@@ -47,4 +48,4 @@ function rgbToHex(r, g, b) {
 color1.addEventListener('input', setGradient);
 color2.addEventListener('input', setGradient);
 
-getInitialGradientColors();
+setInitialGradientColors();
