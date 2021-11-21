@@ -4,11 +4,17 @@ var color2 = document.querySelector('.color2');
 var randomize = document.querySelector('.randomize');
 var body = document.getElementById('gradient');
 
-function setGradient() {
+function onChangeGradient() {
   body.style.background =
     'linear-gradient(to right, ' + color1.value + ', ' + color2.value + ')';
 
   css.textContent = body.style.background + ';';
+}
+
+function onRandomize() {
+  color1.value = rgbToHex(...getRandomRgb());
+  color2.value = rgbToHex(...getRandomRgb());
+  onChangeGradient();
 }
 
 function extractColors(rgb) {
@@ -35,7 +41,7 @@ function setInitialGradientColors() {
   color1.value = rgbToHex(...extractColors(rgbColor1));
   color2.value = rgbToHex(...extractColors(rgbColor2));
 
-  setGradient();
+  onChangeGradient();
 }
 
 function rgbToHex(...colors) {
@@ -50,14 +56,8 @@ function getRandomRgb() {
   return colors;
 }
 
-function onRandomize() {
-  color1.value = rgbToHex(...getRandomRgb());
-  color2.value = rgbToHex(...getRandomRgb());
-  setGradient();
-}
-
-color1.addEventListener('input', setGradient);
-color2.addEventListener('input', setGradient);
+color1.addEventListener('input', onChangeGradient);
+color2.addEventListener('input', onChangeGradient);
 randomize.addEventListener('click', onRandomize);
 
 setInitialGradientColors();
