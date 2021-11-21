@@ -38,12 +38,8 @@ function setInitialGradientColors() {
   setGradient();
 }
 
-function componentToHex(c) {
-  return c.toString(16).padStart(2, '0');
-}
-
-function rgbToHex(r, g, b) {
-  return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
+function rgbToHex(...colors) {
+  return '#' + colors.map((c) => c.toString(16).padStart(2, '0')).join('');
 }
 
 function getRandomRgb() {
