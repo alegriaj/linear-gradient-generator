@@ -1,6 +1,7 @@
 var css = document.querySelector('h3');
 var color1 = document.querySelector('.color1');
 var color2 = document.querySelector('.color2');
+var randomize = document.querySelector('.randomize');
 var body = document.getElementById('gradient');
 
 function setGradient() {
@@ -45,7 +46,22 @@ function rgbToHex(r, g, b) {
   return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
+function getRandomRgb() {
+  let colors = [];
+  for (let i = 0; i < 3; i++) {
+    colors.push(Math.trunc(Math.random() * 255 + 1));
+  }
+  return colors;
+}
+
+function onRandomize() {
+  color1.value = rgbToHex(...getRandomRgb());
+  color2.value = rgbToHex(...getRandomRgb());
+  setGradient();
+}
+
 color1.addEventListener('input', setGradient);
 color2.addEventListener('input', setGradient);
+randomize.addEventListener('click', onRandomize);
 
 setInitialGradientColors();
