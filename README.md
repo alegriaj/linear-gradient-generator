@@ -1,7 +1,9 @@
 # linear-gradient-generator
 
-Select two colors (or randomize!) to test CSS linear gradients.
-Displays the linear-gradient() string so you can just copy and paste.
+Available here: https://alegriaj.github.io/linear-gradient-generator/
+
+- Select two colors (or randomize!) to test CSS linear gradients.
+- Displays the linear-gradient() string so you can just copy and paste.
 
 ### Implementation
 
